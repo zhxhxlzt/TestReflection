@@ -17,10 +17,20 @@ namespace
 struct MetaObjectInfo
 {
 	using FunctionTypeNoArgs = std::function<void(void*)>;
+	using FunctionTypeNoArgsWithReturn = std::function<void(void* obj, void* ret)>;
 	std::string class_name;
 	std::string base_class_name;
 
 	std::map<std::string, FunctionTypeNoArgs> no_args_func_map;
+	std::map<std::string, FunctionTypeNoArgsWithReturn> no_args_with_return_func_map;
+
+	template<typename T>
+	T CallWithReturnFunc(void* obj, std::string funcName)
+	{
+		T ret;
+		no_args_with_return_func_map[funcName](obj, &ret);
+		return ret;
+	}
 };
 
 
@@ -49,6 +59,14 @@ static void RegisterMetaFunction ## FuncName()	{	\
 	GetMetaObjectInfo()->no_args_func_map[#FuncName] = f;	\
 }	\
 void FuncName()
+
+
+#define META_FUNCTION_NO_ARGS_WITH_RETURN(FuncName, ReturnType)	\
+static void RegisterMetaFunction ## FuncName(){	\
+	auto f = [](void* vobj, void* ret)	{ ReturnType oRet = static_cast<ClassType*>(vobj)->FuncName(); *static_cast<ReturnType*>(ret) = oRet;};	\
+	GetMetaObjectInfo()->no_args_with_return_func_map[#FuncName] = f;	\
+}	\
+ReturnType FuncName()
 
 #define REGISTER_METHOD(FuncName) RegisterMetaFunction ## FuncName()
 	

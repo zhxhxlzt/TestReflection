@@ -57,6 +57,7 @@ int main()
 
 	Object obj;
 	Object::GetMetaObjectInfo()->no_args_func_map["Nice"](&obj);
+	auto f = Object::GetMetaObjectInfo()->CallWithReturnFunc<std::string>(&obj, "GetObjectName");
 
 	return 0;
 }

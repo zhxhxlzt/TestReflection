@@ -7,7 +7,7 @@
 class Component;
 class GameObject : public Object
 {
-	META_OBJECT(GameObject, Object){};
+	META_OBJECT(GameObject, Object);
 
 public:
 	template<typename T>

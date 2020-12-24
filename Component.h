@@ -5,7 +5,7 @@
 #include "GameObject.h"
 class Component : public Object
 {
-	META_OBJECT(Component, Object){};
+	META_OBJECT(Component, Object);
 
 public:
 	template<typename T>
@@ -17,4 +17,15 @@ public:
 private:
 	friend class GameObject;
 	GameObject* m_game_object;
+};
+
+class Comp1 : public Component
+{
+	META_OBJECT(Comp1, Component);
+
+};
+
+class Comp2 : public Component
+{
+	META_OBJECT(Comp2, Component);
 };

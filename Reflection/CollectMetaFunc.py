@@ -50,6 +50,8 @@ class HeadFileInfo:
         lines = ReadLines(filePath)
         for line in lines:
             self.UpdateClassInfo(line)
+            if not self.curClass:
+                continue
             funcName = self.GetFuncName(line)
             if funcName:
                 funcInfo = FuncInfo()
@@ -72,14 +74,20 @@ class HeadFileInfo:
 
 
     def UpdateClassInfo(self, line: str):
+        line = line.strip('\n')
         ret = re.search(".*META_OBJECT\((?P<className>\w+).*\)", line)
+        # 有 ";" 说明没有定义函数体，才需要自动生成
         if ret:
             className = ret.group("className")
-            if self.curClass is None or self.curClass.className != className:
-                self.curClass = ClassInfo()
-                self.curClass.className = className
-                self.dClassInfo[className] = self.curClass
-                return True
+            print('class line:', line)
+            if line[-1] == ';':
+                if self.curClass is None or self.curClass.className != className:
+                    self.curClass = ClassInfo()
+                    self.curClass.className = className
+                    self.dClassInfo[className] = self.curClass
+                    return True
+            else:
+                Print('手动处理的类:', className)
         return False
 
     def GetFuncName(self, line: str):

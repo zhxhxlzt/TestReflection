@@ -3,7 +3,10 @@
 
 class ABC : public Object
 {
-	META_OBJECT(ABC, Object);
+	META_OBJECT(ABC, Object)
+	{
+		REGISTER_FUNC(Init);
+	}
 
 public:
 	META_VOID_FUNC_P(Init, { int a; int b; int c; })

@@ -66,7 +66,7 @@ public:	\
 		}	\
 	}	\
 private:	\
-	static void RegisterAllMethod();
+	static void RegisterAllMethod()
 
 
 // ÉùÃ÷×¢²áº¯ÊıÓÃ

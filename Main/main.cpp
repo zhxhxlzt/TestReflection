@@ -2,7 +2,7 @@
 #include "Component.h"
 
 #include "ABC.h"
-
+#include "RI.h"
 
 
 void TestCompOp() {
@@ -26,12 +26,13 @@ void TestCallMethod() {
 
 void TestABC()
 {
-	ABC obj;
-	obj.GetMetaObjectInfo()->CallFunc<ABC::InitArgs>(&obj, "Init", { 10, 20, 30 });
+	ABCD obj;
+	obj.GetMetaObjectInfo()->CallFunc<ABCD::InitArgs>(&obj, "Init", { 10, 20, 30 });
 	
 }
 int main()
 {
+	initializeRI();
 	TestABC();
 	//TestCallMethod();
 	return 0;

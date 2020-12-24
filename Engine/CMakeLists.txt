@@ -5,7 +5,8 @@ source_group("Header Files" FILES ${header_files})
 file(GLOB cpp_files *.cpp)
 
 add_library(Engine ${cpp_files} ${header_files})
-target_link_libraries(Engine Reflection)
+find_library(vulkanLib vulkan-1.lib ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/vulkan)
+target_link_libraries(Engine Reflection ${vulkanLib})
 
 set(REGISTER_PY_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/../Reflection/CollectMetaFunc.py)
 set(REGISTER_FILE RegisterFunc.cpp)

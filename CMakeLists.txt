@@ -6,5 +6,6 @@ add_subdirectory(Reflection)
 add_subdirectory(Engine)
 add_subdirectory(Main)
 
-target_include_directories(Engine PUBLIC Reflection)
+target_include_directories(Engine PUBLIC Reflection ThirdParty/vulkan)
 target_include_directories(Main PUBLIC Engine)
+target_link_directories(Engine PUBLIC ThirdParty/vulkan)

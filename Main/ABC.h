@@ -1,9 +1,9 @@
 #pragma once
 #include "Object.h"
 
-class ABC : public Object
+class ABCD : public Object
 {
-	META_OBJECT(ABC, Object)
+	META_OBJECT(ABCD, Object)
 	{
 		REGISTER_FUNC(Init);
 	}

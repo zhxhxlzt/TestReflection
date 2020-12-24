@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "Component.h"
 
-
+#include "ABC.h"
 
 
 
@@ -14,7 +14,7 @@ void TestCompOp() {
 }
 
 void TestCallMethod() {
-	
+
 	Box obj;
 	auto metaInfo = obj.GetMetaObjectInfo();
 
@@ -24,8 +24,15 @@ void TestCallMethod() {
 	metaInfo->CallFunc(&obj, "Clear");
 }
 
+void TestABC()
+{
+	ABC obj;
+	obj.GetMetaObjectInfo()->CallFunc<ABC::InitArgs>(&obj, "Init", { 10, 20, 30 });
+	
+}
 int main()
 {
-	TestCallMethod();
+	TestABC();
+	//TestCallMethod();
 	return 0;
 }

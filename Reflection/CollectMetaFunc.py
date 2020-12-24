@@ -1,12 +1,9 @@
-
-
 from pathlib import Path
 import re
 import sys
 
-matchFunc = re.compile("META_.*FUNC.*\((?P<funcName>.*)\)")
-
-
+def Print(title, *argv):
+    print(title, '=====>', *argv)
 
 def ReadLines(filename: str):
     for encode in ['gbk', 'utf-8']:
@@ -102,9 +99,9 @@ class RegisterFuncMgr:
         self.lHeadFileInfo.clear()
         for headFilePath in Path(rootPath).rglob("*.h"):
             if self.CheckInFilters(headFilePath.name):
-                print('filtered head file:', headFilePath)
+                Print('filtered head file:', headFilePath)
                 continue
-            print('cur head file===>', headFilePath.as_posix())
+            Print('cur head file:', headFilePath.as_posix())
             headInfo = HeadFileInfo()
             headInfo.Load(headFilePath)
             self.lHeadFileInfo.append(headInfo)
@@ -121,7 +118,7 @@ class RegisterFuncMgr:
         if filePath.exists():
             data = ''.join(ReadLines(filePath))
             if text == data:
-                print('不需要更新')
+                Print('不需要更新')
                 return
 
         with open(filePath, 'w') as fp:
@@ -134,28 +131,9 @@ class RegisterFuncMgr:
         return False
 
 
-def TestRegex():
-    s = "META_FUNC(GetScaledVolumn, int, int, scale);"
-    s = "META_VOID_FUNC_VOID(GetScaledVolumn);"
-    r = re.search("META_.*FUNC.*\((?P<params>.*)\)", s)
-    if r:
-        param_text = r.group("params")
-        funcName = param_text.split(",")[0].strip()
-
-        print(funcName)
-
-
-
-
-
-TestRegex()
-
-testFilePath = r'F:\TestReflection\源.cpp'
-testSavePath = 'registerFunc.cpp'
-# sys.argv = '', testFilePath, testSavePath
 if __name__ == '__main__':
     mgr = RegisterFuncMgr()
-    print('====>', sys.argv)
+    Print('sys.argv:', sys.argv)
     _, filePath, savePath = sys.argv
     mgr.Load(filePath)
     mgr.Save(savePath)

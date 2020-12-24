@@ -22,7 +22,6 @@ void TestCallMethod() {
 	int b = metaInfo->CallFunc<int, int>(&obj, "GetScaledVolumn", 20);
 	int c = metaInfo->CallFunc<int>(&obj, "GetVolumn");
 	metaInfo->CallFunc(&obj, "Clear");
-
 }
 
 int main()

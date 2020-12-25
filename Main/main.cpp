@@ -3,6 +3,7 @@
 
 #include "ABC.h"
 #include "RI.h"
+#include "PY.h"
 
 
 void TestCompOp() {
@@ -32,6 +33,7 @@ void TestABC()
 }
 int main()
 {
+	InitPy();
 	initializeRI();
 	TestABC();
 	//TestCallMethod();

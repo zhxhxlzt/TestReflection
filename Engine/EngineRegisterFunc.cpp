@@ -17,3 +17,4 @@ void Box::RegisterAllMethod() {
 	REGISTER_FUNC(GetVolumn);
 	REGISTER_FUNC(Clear);
 }
+
